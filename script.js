@@ -228,17 +228,21 @@ return
 
 const { jsPDF } = window.jspdf
 let doc = new jsPDF()
+const pageWidth = doc.internal.pageSize.getWidth()
+const pageHeight = doc.internal.pageSize.getHeight()
+const margin = 15
+const contentWidth = pageWidth - (2 * margin)
 
 // Header
 doc.setFontSize(16)
-doc.text("Academic CGPI Report",105,12,{align:'center'})
+doc.text("Academic CGPI Report",pageWidth/2,12,{align:'center'})
 
 doc.setFontSize(9)
-doc.text("University: Mumbai University",20,21)
+doc.text("University: Mumbai University",margin,21)
 
 // Semester Data Table
 doc.setFontSize(10)
-doc.text("Semester Data",20,28)
+doc.text("Semester Data",margin,28)
 
 let tableData = []
 for(let i=1;i<=8;i++){
@@ -254,20 +258,26 @@ doc.autoTable({
 	startY: 32,
 	head: [['Semester', 'SGPA', 'CR x GP', 'Credits']],
 	body: tableData,
-	margin: {left: 20, right: 20},
-	styles: {fontSize: 9, cellPadding: 2},
-	headStyles: {fillColor: [108,99,255], textColor: 255, fontStyle: 'bold', fontSize: 9},
+	margin: {left: margin, right: margin},
+	styles: {fontSize: 8, cellPadding: 2.5},
+	headStyles: {fillColor: [108,99,255], textColor: 255, fontStyle: 'bold', fontSize: 8},
 	alternateRowStyles: {fillColor: [245,245,255]},
+	columnStyles: {
+		0: {cellWidth: contentWidth * 0.2},
+		1: {cellWidth: contentWidth * 0.25},
+		2: {cellWidth: contentWidth * 0.3},
+		3: {cellWidth: contentWidth * 0.25}
+	}
 })
 
 let finalY = doc.lastAutoTable.finalY + 8
 
 // Formula Section
 doc.setFontSize(9)
-doc.text("Mumbai University Percentage Conversion",20,finalY)
-doc.setFontSize(8)
-doc.text("If CGPI < 7   :   Percentage = 7.1 * CGPI + 12",20,finalY+5)
-doc.text("If CGPI >= 7  :   Percentage = 7.4 * CGPI + 12",20,finalY+9)
+doc.text("Mumbai University Percentage Conversion",margin,finalY)
+doc.setFontSize(7.5)
+doc.text("If CGPI < 7   :   Percentage = 7.1 * CGPI + 12",margin,finalY+5)
+doc.text("If CGPI >= 7  :   Percentage = 7.4 * CGPI + 12",margin,finalY+9)
 
 finalY += 18
 
@@ -293,26 +303,38 @@ doc.autoTable({
 	startY: finalY,
 	head: [['Metric', 'Value']],
 	body: summaryData,
-	margin: {left: 40, right: 40},
-	styles: {fontSize: 8, cellPadding: 2},
-	headStyles: {fillColor: [108,99,255], textColor: 255, fontStyle: 'bold', fontSize: 8},
+	margin: {left: margin, right: margin},
+	styles: {fontSize: 7.5, cellPadding: 2.5},
+	headStyles: {fillColor: [108,99,255], textColor: 255, fontStyle: 'bold', fontSize: 7.5},
 	alternateRowStyles: {fillColor: [245,245,255]},
-	columnStyles: {0: {cellWidth: 65}, 1: {cellWidth: 65}}
+	columnStyles: {0: {cellWidth: contentWidth * 0.55}, 1: {cellWidth: contentWidth * 0.45}}
 })
 
-finalY = doc.lastAutoTable.finalY + 6
+finalY = doc.lastAutoTable.finalY + 8
 
-// Chart
+// Chart - with responsive sizing
 doc.setFontSize(9)
-doc.text("SGPA Performance Trend",20,finalY)
+doc.text("SGPA Performance Trend",margin,finalY)
 
 const canvas = document.getElementById("trendChart")
 const imgData = canvas.toDataURL("image/png")
-doc.addImage(imgData,"PNG",20,finalY+4,160,90)
+const chartWidth = contentWidth
+const chartHeight = (canvas.height / canvas.width) * chartWidth
+const chartX = margin
+const chartY = finalY + 4
+
+// Check if chart fits on current page, add new page if needed
+if(chartY + chartHeight > pageHeight - 20){
+	doc.addPage()
+	doc.text("SGPA Performance Trend (continued)",margin,15)
+	doc.addImage(imgData,"PNG",margin,20,chartWidth,chartHeight)
+} else {
+	doc.addImage(imgData,"PNG",chartX,chartY,chartWidth,chartHeight)
+}
 
 // Footer
-doc.setFontSize(9)
-doc.text("Generated on: " + new Date().toLocaleDateString(),105,doc.internal.pageSize.height-10,{align:'center'})
+doc.setFontSize(8)
+doc.text("Generated on: " + new Date().toLocaleDateString(),pageWidth/2,pageHeight-10,{align:'center'})
 
 doc.save("MU_CGPI_Report.pdf")
 

@@ -133,11 +133,19 @@ button {
 	padding: 14px 36px;
 	font-size: 1.13em;
 	font-weight: 600;
-	margin: 12px 10px 0 0;
+	margin: 12px 10px 12px 0;
 	cursor: pointer;
 	box-shadow: 0 2px 12px rgba(108,99,255,0.10);
 	transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
 	letter-spacing: 0.5px;
+	min-height: 44px;
+	min-width: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	-webkit-appearance: none;
+	appearance: none;
+	touch-action: manipulation;
 }
 
 button:hover, button:focus {
@@ -294,7 +302,7 @@ button:hover, button:focus {
 	button {
 		padding: 12px 24px;
 		font-size: 1em;
-		margin: 10px 8px 0 0;
+		margin: 10px 8px 10px 0;
 	}
 	
 	.chart-container {
@@ -359,7 +367,7 @@ button:hover, button:focus {
 	button {
 		padding: 10px 16px;
 		font-size: 0.95em;
-		margin: 8px 6px 0 0;
+		margin: 8px 6px 8px 0;
 	}
 	
 	.predictor {
@@ -493,8 +501,10 @@ button:hover, button:focus {
 	button {
 		padding: 8px 12px;
 		font-size: 0.85em;
-		margin: 6px 4px 0 0;
+		margin: 6px 0 6px 0;
 		border-radius: 8px;
+		width: 100%;
+		display: block;
 	}
 	
 	button:hover, button:focus {
