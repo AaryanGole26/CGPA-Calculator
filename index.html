@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Mumbai University C-Scheme CGPI & Percentage Calculator that computes CGPI using official formulas. Enter marks, SGPA, or CR×GP to auto-calculate credits, SGPA trends, and generate a downloadable report with graph. Includes performance prediction tools to estimate required SGPA for achieving a target CGPI.">
+	<meta name="keywords" content="Mumbai University, CGPI, SGPA, C-Scheme, Percentage, Calculator, Engineering, Marksheet, GPA, GitHub Pages">
+	<meta name="author" content="Aaryan Gole">
+	<meta name="robots" content="index, follow">
+	<meta property="og:title" content="Mumbai University CGPI Calculator (C-Scheme)">
+	<meta property="og:description" content="Calculate CGPI, SGPA, and percentage for Mumbai University C-Scheme. Responsive, modern, and SEO-optimized.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://aaryangole26.github.io/CGPA_calc/">
+	<meta property="og:image" content="https://img.icons8.com/color/48/000000/calculator.png">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Mumbai University CGPI Calculator (C-Scheme)">
+	<meta name="twitter:description" content="Calculate CGPI, SGPA, and percentage for Mumbai University C-Scheme. Responsive, modern, and SEO-optimized.">
+	<meta name="twitter:image" content="https://img.icons8.com/color/48/000000/calculator.png">
+	<title>Mumbai University CGPI Calculator (C-Scheme)</title>
+	<link rel="icon" href="https://img.icons8.com/color/48/000000/calculator.png" type="image/png">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.31/dist/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+</body>
+
+
+<body>
+	<div class="bg-shape bg-shape1" aria-hidden="true"></div>
+	<div class="bg-shape bg-shape2" aria-hidden="true"></div>
+	<header>
+		<h1 class="animate__fadeInDown">Mumbai University CGPI Calculator</h1>
+		<p style="text-align:center; color:#6c63ff; font-weight:600; margin-top:-10px; letter-spacing:1px;">Calculator only for C-Scheme</p>
+	</header>
+
+	<main>
+		<section class="card animate__fadeInUp" style="background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(72,198,239,0.15)); border: 1.5px solid rgba(108,99,255,0.15); margin-bottom:20px;" aria-label="Calculator Description">
+			<h2 style="color:#6c63ff; margin-top:0; font-size:1.3em;">About This Calculator</h2>
+			<p style="margin: 0; line-height: 1.6; color: #232946;">
+				A comprehensive CGPI &amp; Percentage calculator for Mumbai University's C-Scheme. Enter your marks, SGPA, or CR×GP directly from your marksheet to automatically calculate:
+			</p>
+			<ul style="margin: 12px 0; color: #232946; line-height: 1.8;">
+				<li><strong>CGPI</strong> using official Mumbai University formulas</li>
+				<li><strong>SGPA Trends</strong> with interactive visualizations across all semesters</li>
+				<li><strong>Percentage</strong> based on official conversion formulas</li>
+				<li><strong>Performance Reports</strong> downloadable as professional PDF with charts</li>
+				<li><strong>Target Prediction</strong> - estimate required SGPA for any semester to achieve your desired CGPI</li>
+			</ul>
+			<p style="margin: 0; color: #232946; font-size: 0.95em;"><strong>📊 Features:</strong> Real-time calculations, flexible credit handling, animated charts, responsive design, and complete offline functionality.</p>
+		</section>
+
+		<section class="card animate__fadeInUp" aria-label="CGPI Input Form">
+			<table aria-label="Semester Data">
+				<thead>
+					<tr>
+						<th scope="col">Semester</th>
+						<th scope="col">SGPA</th>
+						<th scope="col">CR×GP</th>
+						<th scope="col">Credits</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Sem1</td>
+						<td><input id="sgpa1" oninput="autoCredits(1)" aria-label="Sem1 SGPA"></td>
+						<td><input id="crgp1" aria-label="Sem1 CRxGP"></td>
+						<td><input id="cr1" aria-label="Sem1 Credits"></td>
+					</tr>
+					<tr>
+						<td>Sem2</td>
+						<td><input id="sgpa2" oninput="autoCredits(2)" aria-label="Sem2 SGPA"></td>
+						<td><input id="crgp2" aria-label="Sem2 CRxGP"></td>
+						<td><input id="cr2" aria-label="Sem2 Credits"></td>
+					</tr>
+					<tr>
+						<td>Sem3</td>
+						<td><input id="sgpa3" oninput="autoCredits(3)" aria-label="Sem3 SGPA"></td>
+						<td><input id="crgp3" aria-label="Sem3 CRxGP"></td>
+						<td><input id="cr3" aria-label="Sem3 Credits"></td>
+					</tr>
+					<tr>
+						<td>Sem4</td>
+						<td><input id="sgpa4" oninput="autoCredits(4)" aria-label="Sem4 SGPA"></td>
+						<td><input id="crgp4" aria-label="Sem4 CRxGP"></td>
+						<td><input id="cr4" aria-label="Sem4 Credits"></td>
+					</tr>
+					<tr>
+						<td>Sem5</td>
+						<td><input id="sgpa5" oninput="autoCredits(5)" aria-label="Sem5 SGPA"></td>
+						<td><input id="crgp5" aria-label="Sem5 CRxGP"></td>
+						<td><input id="cr5" aria-label="Sem5 Credits"></td>
+					</tr>
+					<tr>
+						<td>Sem6</td>
+						<td><input id="sgpa6" oninput="autoCredits(6)" aria-label="Sem6 SGPA"></td>
+						<td><input id="crgp6" aria-label="Sem6 CRxGP"></td>
+						<td><input id="cr6" aria-label="Sem6 Credits"></td>
+					</tr>
+					<tr>
+						<td>Sem7</td>
+						<td><input id="sgpa7" oninput="autoCredits(7)" aria-label="Sem7 SGPA"></td>
+						<td><input id="crgp7" aria-label="Sem7 CRxGP"></td>
+						<td><input id="cr7" aria-label="Sem7 Credits"></td>
+					</tr>
+					<tr>
+						<td>Sem8</td>
+						<td><input id="sgpa8" oninput="autoCredits(8)" aria-label="Sem8 SGPA"></td>
+						<td><input id="crgp8" aria-label="Sem8 CRxGP"></td>
+						<td><input id="cr8" aria-label="Sem8 Credits"></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<button onclick="calculate()">Calculate</button>
+			<button onclick="downloadPDF()">Download Report</button>
+            <section class="predictor animate__fadeIn" aria-label="CGPI Target Predictor">
+				<h3>CGPI Target Predictor</h3>
+				<input id="targetCGPI" placeholder="Enter desired CGPI" aria-label="Target CGPI">
+				<input id="targetSemester" type="number" min="1" max="8" placeholder="Target Semester (1-8)" aria-label="Target Semester">
+				<button onclick="predictCGPI()">Predict Required SGPA</button>
+				<div id="prediction"></div>
+			</section>
+			<div id="result"></div>
+		</section>
+
+		<section class="chart-container animate__fadeInUp" aria-label="SGPA Trend Chart Section">
+			<h2 style="color:#6c63ff; margin-top:0; margin-bottom:20px; text-align:center;">SGPA Performance Trend</h2>
+			<canvas id="trendChart" aria-label="SGPA Trend Chart" width="800" height="400"></canvas>
+		</section>
+			<section class="formula animate__fadeInUp" style="margin-top:20px;" aria-label="Official Formula">
+				<h3 style="color:#6c63ff; margin-bottom:15px; font-size:1em;">Official Formula</h3>
+				<div style="margin-bottom:10px; text-align:center;">
+					<span id="katex-cgpi" style="display:block; margin-bottom:15px;"></span>
+					<span id="katex-percentage" style="display:block;"></span>
+				</div>
+				<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+				<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+				<script>
+					window.addEventListener('DOMContentLoaded', function() {
+						katex.render("CGPI = \\frac{\\sum (CR \\times GP)}{\\sum Credits}", document.getElementById('katex-cgpi'), {throwOnError:false, displayMode:true});
+						katex.render("Percentage = \\begin{cases} 7.1 \\times CGPI + 12 & \\text{if } CGPI < 7 \\\\ 7.4 \\times CGPI + 12 & \\text{if } CGPI \\geq 7 \\end{cases}", document.getElementById('katex-percentage'), {throwOnError:false, displayMode:true});
+					});
+				</script>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div>
+			<span>Made with ❤️ for the students of Mumbai University | <a href="https://github.com/AaryanGole26/CGPA-Calculator" target="_blank" rel="noopener" aria-label="GitHub Repository">GitHub</a></span>
+		</div>
+	</footer>
+
+	<script src="script.js"></script>
+</body>
