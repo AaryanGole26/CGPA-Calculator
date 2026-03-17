@@ -1,0 +1,41 @@
+# Jekyll configuration for GitHub Pages
+title: Mumbai University CGPI Calculator
+description: Free CGPI Calculator for Mumbai University C-Scheme. Calculate CGPI, SGPA, and percentage instantly.
+url: https://aaryangole26.github.io/CGPA-Calculator/
+baseurl: /CGPA-Calculator
+author: Aaryan Gole
+email: your-email@example.com
+
+# Build settings
+markdown: kramdown
+theme: jekyll-default
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO and Meta tags
+google_site_verification: 
+twitter_username: 
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+
+# Compression
+compress_html:
+  clipped_comment: " "
+  comments: all
+  endings: all
+  ignore:
+    envs: development
+  blanklines: false
+  profile: false
+  startings: []
+
+# Exclude from processing
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json

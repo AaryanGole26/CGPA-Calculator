@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /
 
-Sitemap: https://aaryangole26.github.io/CGPA_calc/sitemap.xml
+Sitemap: https://aaryangole26.github.io/CGPA-Calculator/sitemap.xml
